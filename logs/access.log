@@ -700,3 +700,8 @@
 ::1 - - [24/Sep/2025:07:04:43 +0000] "GET /admin/sizes HTTP/1.1" 200 16590 "http://localhost:3000/admin/dashboard" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 ::1 - - [24/Sep/2025:07:04:43 +0000] "GET /assets/css/style.css HTTP/1.1" 304 - "http://localhost:3000/admin/sizes" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 ::1 - - [24/Sep/2025:07:04:43 +0000] "GET /config/config.js HTTP/1.1" 304 - "http://localhost:3000/admin/sizes" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+::1 - - [24/Sep/2025:07:24:05 +0000] "GET / HTTP/1.1" 404 562 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+::1 - - [24/Sep/2025:07:24:05 +0000] "GET / HTTP/1.1" 404 562 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+::1 - - [24/Sep/2025:07:24:05 +0000] "GET /favicon.ico HTTP/1.1" 404 562 "http://localhost:3000/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+::1 - - [24/Sep/2025:07:24:08 +0000] "GET /admin/login HTTP/1.1" 200 3072 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+::1 - - [24/Sep/2025:07:24:08 +0000] "GET /assets/images/admin.jpg HTTP/1.1" 200 3623939 "http://localhost:3000/admin/login" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
