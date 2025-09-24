@@ -1,0 +1,87 @@
+<h2 class="mb-4">Edit User</h2>
+
+<div class="mb-3 text-end">
+  <a href="/admin/users" class="btn btn-sm btn-dark">Back to Users</a>
+</div>
+
+<form action="/admin/user/update/<%= user._id %>" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <strong><label for="username" class="form-label">Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      id="username"
+      name="username"
+      value="<%= user.username %>"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="email" class="form-label">Email</label></strong>
+    <input
+      type="email"
+      class="form-control custom-input rounded-md"
+      id="email"
+      name="email"
+      value="<%= user.email %>"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="password" class="form-label">Password</label></strong>
+    <input
+      type="password"
+      class="form-control custom-input rounded-md"
+      id="password"
+      name="password"
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="role" class="form-label">Role</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="role"
+      name="role"
+      required
+    >
+      <option value="1" <%= user.role === 1 ? 'selected' : '' %>>Administrator</option>
+      <option value="0" <%= user.role === 0 ? 'selected' : '' %>>User</option>
+    </select>
+  </div>  user.profileImage
+
+  <div class="mb-3">
+    <strong><label for="status" class="form-label">Status</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="status"
+      name="status"
+      required
+    >
+      <option value="1" <%= user.status === 1 ? 'selected' : '' %>>Active</option>
+      <option value="0" <%= user.status === 0 ? 'selected' : '' %>>Inactive</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="profileImage" class="form-label">Profile Image</label></strong>
+    <input
+      type="file"
+      class="form-control custom-input rounded-md"
+      name="profileImage"
+      id="profileImage"
+    />
+    <% if (user.profileImage) { %>
+      <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" width="80" height="80" class="mt-2">
+    <% } %>
+  </div>
+
+  <button type="submit" class="btn btn-success">Update</button>
+  <a href="/admin/users" class="btn btn-secondary">Cancel</a>
+</form>
+<script>
+
+  console.log(user)
+</script>

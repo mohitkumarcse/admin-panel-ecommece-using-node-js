@@ -1,0 +1,298 @@
+<div class="sidebar flex-shrink-0 p-3" style="width: 260px">
+  <a
+    href="/"
+    class="d-flex align-items-center pb-3 mb-3 text-success text-decoration-none"
+  >
+    <svg class="bi me-2" width="30" height="24">
+      <use xlink:href="#bootstrap"></use>
+    </svg>
+    <span class="fs-5 fw-semibold">Collapsible</span>
+  </a>
+
+  <ul class="list-unstyled ps-0">
+    <!-- Users -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#users-collapse"
+        aria-expanded="false"
+        aria-controls="users-collapse"
+      >
+        <i class="bi bi-people-fill me-2"></i> Users
+      </button>
+      <div class="collapse" id="users-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/users"
+              ><i class="bi bi-card-list me-2"></i> Users List</a
+            >
+          </li>
+          <li>
+            <a href="/admin/user/create"
+              ><i class="bi bi-person-plus-fill me-2"></i> User Create</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Settings -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#settings-collapse"
+        aria-expanded="false"
+        aria-controls="settings-collapse"
+      >
+        <i class="bi bi-gear-fill me-2"></i> Settings
+      </button>
+      <div class="collapse" id="settings-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/settings/home"
+              ><i class="bi bi-house-fill me-2"></i> Home Settings</a
+            >
+          </li>
+          <li>
+            <a href="/admin/settings/about"
+              ><i class="bi bi-info-circle-fill me-2"></i> About Us</a
+            >
+          </li>
+          <li>
+            <a href="/admin/settings/contact"
+              ><i class="bi bi-envelope-fill me-2"></i> Contact Us</a
+            >
+          </li>
+          <li>
+            <a href="/admin/settings/blog"
+              ><i class="bi bi-journal-text me-2"></i> Blog</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Categories -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#categories-collapse"
+        aria-expanded="false"
+        aria-controls="categories-collapse"
+      >
+        <i class="bi bi-folder-fill me-2"></i> Categories
+      </button>
+      <div class="collapse" id="categories-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/categories"
+              ><i class="bi bi-list-ul me-2"></i> Category List</a
+            >
+          </li>
+          <li>
+            <a href="/admin/category/create"
+              ><i class="bi bi-plus-square me-2"></i> Category Create</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!--admin log-->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#log-collapse"
+        aria-expanded="false"
+        aria-controls="log-collapse"
+      >
+        <i class="bi bi-folder-fill me-2"></i> Log
+      </button>
+      <div class="collapse" id="log-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/logs"
+              ><i class="bi bi-list-ul me-2"></i> Log List</a
+            >
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Brands -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#brands-collapse"
+        aria-expanded="false"
+        aria-controls="brands-collapse"
+      >
+        <i class="bi bi-tags-fill me-2"></i> Brands
+      </button>
+      <div class="collapse" id="brands-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/brands">
+              <i class="bi bi-list-ul me-2"></i> Brand List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/brand/create">
+              <i class="bi bi-plus-square me-2"></i> Brand Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Materials -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#materials-collapse"
+        aria-expanded="false"
+        aria-controls="materials-collapse"
+      >
+        <i class="bi bi-boxes me-2"></i> Materials
+      </button>
+      <div class="collapse" id="materials-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/materials">
+              <i class="bi bi-list-ul me-2"></i> Material List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/material/create">
+              <i class="bi bi-plus-square me-2"></i> Material Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Tags -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#tags-collapse"
+        aria-expanded="false"
+        aria-controls="tags-collapse"
+      >
+        <i class="bi bi-bookmark-fill me-2"></i> Tags
+      </button>
+      <div class="collapse" id="tags-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/tags">
+              <i class="bi bi-list-ul me-2"></i> Tag List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/tag/create">
+              <i class="bi bi-plus-square me-2"></i> Tag Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Sizes -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sizes-collapse"
+        aria-expanded="false"
+        aria-controls="sizes-collapse"
+      >
+        <i class="bi bi-arrows-angle-expand me-2"></i> Sizes
+      </button>
+      <div class="collapse" id="sizes-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/sizes">
+              <i class="bi bi-list-ul me-2"></i> Size List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/size/create">
+              <i class="bi bi-plus-square me-2"></i> Size Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Colors -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#colors-collapse"
+        aria-expanded="false"
+        aria-controls="colors-collapse"
+      >
+        <i class="bi bi-palette-fill me-2"></i> Colors
+      </button>
+      <div class="collapse" id="colors-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/colors">
+              <i class="bi bi-list-ul me-2"></i> Color List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/color/create">
+              <i class="bi bi-plus-square me-2"></i> Color Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Products -->
+    <li class="mb-1">
+      <button
+        class="btn btn-toggle collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#products-collapse"
+        aria-expanded="false"
+        aria-controls="products-collapse"
+      >
+        <i class="bi bi-box-seam me-2"></i> Products
+      </button>
+      <div class="collapse" id="products-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal small ps-4">
+          <li>
+            <a href="/admin/products">
+              <i class="bi bi-list-ul me-2"></i> Product List
+            </a>
+          </li>
+          <li>
+            <a href="/admin/product/create">
+              <i class="bi bi-plus-square me-2"></i> Product Create
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

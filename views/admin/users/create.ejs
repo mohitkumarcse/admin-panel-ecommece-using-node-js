@@ -1,0 +1,76 @@
+<h2 class="mb-4">Create New User</h2>
+<div class="mb-3 text-end">
+  <a href="/admin/user/create" class="btn btn-sm btn-dark">Create User</a>
+</div>
+<form action="/admin/user/store" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <strong><label for="userName" class="form-label">Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      name="username"
+      id="userName"
+    />
+  </div>
+  <div class="mb-3">
+    <strong><label for="userEmail" class="form-label">Email</label></strong>
+    <input
+      type="email"
+      class="form-control custom-input rounded-md"
+      name="email"
+      id="userEmail"
+      aria-describedby="emailHelp"
+    />
+  </div>
+  <div class="mb-3">
+    <strong
+      ><label for="userPassword" class="form-label">Password</label></strong
+    >
+    <input
+      type="password"
+      class="form-control custom-input rounded-md"
+      name="password"
+      id="userPassword"
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="picture" class="form-label">Picture</label></strong>
+    <input
+      type="file"
+      class="form-control custom-input rounded-md"
+      name="profileImage"
+      id="profileImage"
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="userRole" class="form-label">Role</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="userRole"
+      name="role"
+      aria-label="Select user role"
+    >
+      <option selected></option>
+      <option value="1">Administrator</option>
+      <option value="2">User</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <strong><label for="userStatus" class="form-label">Status</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="userStatus"
+      name="status"
+      aria-label="Select user status"
+    >
+      <option selected></option>
+      <option value="1">Active</option>
+      <option value="0">Inactive</option>
+    </select>
+  </div>
+
+  <button type="submit" class="button-styling">Save</button>
+  <button type="button" class="button-styling">Cancel</button>
+</form>

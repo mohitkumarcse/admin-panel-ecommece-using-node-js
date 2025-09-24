@@ -1,0 +1,99 @@
+<h2 class="mb-4">Edit Brand</h2>
+
+<div class="mb-3 text-end">
+  <a href="/admin/brands" class="btn btn-sm btn-dark">Back to Brands</a>
+</div>
+
+<form action="/admin/brand/update/<%= brand._id %>" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <strong><label for="name" class="form-label">Brand Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      id="name"
+      name="name"
+      value="<%= brand.name %>"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="description" class="form-label">Description</label></strong>
+    <textarea
+      class="form-control custom-input rounded-md"
+      id="description"
+      name="description"
+      rows="3"
+    ><%= brand.description %></textarea>
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="status" class="form-label">Status</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="status"
+      name="status"
+      required
+    >
+      <option value="active" <%= brand.status === 'active' ? 'selected' : '' %>>Active</option>
+      <option value="inactive" <%= brand.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <strong><label class="form-label">Trending Options</label></strong><br />
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="isHomeTrending"
+        id="isHomeTrending"
+        value="true"
+        <%= brand.isHomeTrending ? 'checked' : '' %>
+      />
+      <label class="form-check-label" for="isHomeTrending">Home</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="isMenTrending"
+        id="isMenTrending"
+        value="true"
+        <%= brand.isMenTrending ? 'checked' : '' %>
+      />
+      <label class="form-check-label" for="isMenTrending">Men</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="isWomenTrending"
+        id="isWomenTrending"
+        value="true"
+        <%= brand.isWomenTrending ? 'checked' : '' %>
+      />
+      <label class="form-check-label" for="isWomenTrending">Women</label>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="brandImage" class="form-label">Brand Image</label></strong>
+    <input
+      type="file"
+      class="form-control custom-input rounded-md"
+      name="brandImage"
+      id="brandImage"
+    />
+    <% if (brand.image) { %>
+      <img src="/uploads/<%= brand.image %>" alt="Brand Image" width="80" height="80" class="mt-2">
+    <% } %>
+  </div>
+
+  <button type="submit" class="btn btn-success">Update</button>
+  <a href="/admin/brands" class="btn btn-secondary">Cancel</a>
+</form>
+
+<script>
+  console.log(<%= JSON.stringify(brand) %>);
+</script>

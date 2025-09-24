@@ -1,0 +1,93 @@
+<h2 class="mb-4">Create New Brand</h2>
+
+<div class="mb-3 text-end">
+  <a href="/admin/brands" class="btn btn-sm btn-dark">Back</a>
+</div>
+
+<form action="/admin/brand/store" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <strong><label for="brandName" class="form-label">Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      name="brandName"
+      id="brandName"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="brandDescription" class="form-label"
+        >Description</label
+      ></strong
+    >
+    <textarea
+      class="form-control custom-input rounded-md"
+      name="brandDescription"
+      id="brandDescription"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="brandImage" class="form-label">Brand Image</label></strong
+    >
+    <input
+      type="file"
+      class="form-control custom-input rounded-md"
+      name="brandImage"
+      id="brandImage"
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="brandStatus" class="form-label">Status</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="brandStatus"
+      name="status"
+    >
+      <option value="active">Active</option>
+      <option value="inactive">Inactive</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <strong class="form-label d-block mb-2">Trending Options</strong>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="homeTrending"
+        name="isHomeTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="homeTrending">Home</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="menTrending"
+        name="isMenTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="menTrending">Men</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="womenTrending"
+        name="isWomenTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="womenTrending">Women</label>
+    </div>
+  </div>
+
+  <button type="submit" class="button-styling">Save</button>
+  <button type="button" class="button-styling">Cancel</button>
+</form>

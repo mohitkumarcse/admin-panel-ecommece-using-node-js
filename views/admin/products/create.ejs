@@ -1,0 +1,359 @@
+<style>
+  .select2-container--default .select2-selection--multiple,
+  .select2-container--default .select2-selection--multiple:focus,
+  .select2-container--default .select2-selection--multiple:active {
+    border: var(--bs-border-width) solid var(--bs-border-color) !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .select2-container {
+    width: 100% !important;
+  }
+
+  .select2-container--default .select2-selection--single {
+    height: 45px;
+    padding: 6px 7px;
+    line-height: 24px;
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+
+  .select2-container--default .select2-selection--multiple {
+    min-height: 45px;
+    padding: 6px 7px;
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+
+  .ck-container {
+    margin-left: 0;
+  }
+
+  .card-header {
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+</style>
+
+<div class="container-fluid mt-5">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="home-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#home"
+        type="button"
+        role="tab"
+        aria-controls="home"
+        aria-selected="true"
+      >
+        Product Info
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="profile-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#profile"
+        type="button"
+        role="tab"
+        aria-controls="profile"
+        aria-selected="false"
+      >
+        Profile
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="contact-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#contact"
+        type="button"
+        role="tab"
+        aria-controls="contact"
+        aria-selected="false"
+      >
+        Contact
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-5" id="myTabContent">
+    <!-- Product Info Tab -->
+    <div
+      class="tab-pane fade show active"
+      id="home"
+      role="tabpanel"
+      aria-labelledby="home-tab"
+    >
+      <form>
+        <div class="row">
+          <!-- Left Column -->
+          <div class="col-md-8">
+            <!-- Product Information -->
+            <div class="card mb-4">
+              <div class="card-header fw-bold">Product Information</div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <label for="productName" class="form-label"
+                    >Product Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="productName"
+                    name="productName"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3 row">
+                  <div class="col-md-4">
+                    <label class="form-label">Brands</label>
+                    <select
+                      class="js-brand-basic-multiple"
+                      name="brands[]"
+                      multiple
+                    >
+                      <option value="Zara">Zara</option>
+                      <option value="Nike">Nike</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Categories</label>
+                    <select
+                      class="js-category-basic-multiple"
+                      name="categories[]"
+                      multiple
+                    >
+                      <option value="Men">Men</option>
+                      <option value="Women">Women</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Materials</label>
+                    <select
+                      class="js-material-basic-multiple"
+                      name="materials[]"
+                      multiple
+                    >
+                      <option value="Cotton">Cotton</option>
+                      <option value="Silk">Silk</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-3 row">
+                  <div class="col-md-4">
+                    <label class="form-label">Tags</label>
+                    <select
+                      class="js-tags-basic-multiple"
+                      name="tags[]"
+                      multiple
+                    >
+                      <option value="Summer">Summer</option>
+                      <option value="Winter">Winter</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Colors</label>
+                    <select
+                      class="js-colors-basic-multiple"
+                      name="colors[]"
+                      multiple
+                    >
+                      <option value="Red">Red</option>
+                      <option value="Blue">Blue</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Sizes</label>
+                    <select
+                      class="js-sizes-basic-multiple"
+                      name="sizes[]"
+                      multiple
+                    >
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Product Description</label>
+                  <div class="ck-container">
+                    <div id="product_description"></div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Product Summary</label>
+                  <div class="ck-container">
+                    <div id="product_summary"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product Price And Stock -->
+            <div class="card mb-4">
+              <div class="card-header fw-bold">Stock & Quantity</div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <label class="form-label">Unit Price</label>
+                  <input type="text" class="form-control" name="unitPrice" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Sale Price</label>
+                  <input type="text" class="form-control" name="salePrice" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Quantity</label>
+                  <input type="text" class="form-control" name="quantity" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Stock</label>
+                  <input type="text" class="form-control" name="stock" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-header fw-bold">Product Images</div>
+              <div class="card-body">
+                <!-- Thumbnail -->
+                <div class="mb-3">
+                  <label for="thumbnailImage" class="form-label">
+                    Thumbnail Image <small class="text-muted">(1024x900)</small>
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="thumbnailImage"
+                    name="thumbnailImage"
+                    accept="image/*"
+                  />
+                  <div id="thumbnailPreview" class="mt-2"></div>
+                </div>
+
+                <!-- Gallery -->
+                <div class="mb-3">
+                  <label for="galleryImages" class="form-label">
+                    Gallery Images <small class="text-muted">(1024x900)</small>
+                  </label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="galleryImages"
+                    name="galleryImages[]"
+                    accept="image/*"
+                    multiple
+                  />
+                  <div
+                    id="galleryPreview"
+                    class="mt-2 d-flex flex-wrap gap-2"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-end mt-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Profile Tab -->
+    <div
+      class="tab-pane fade"
+      id="profile"
+      role="tabpanel"
+      aria-labelledby="profile-tab"
+    >
+      <p>Profile content goes here...</p>
+    </div>
+
+    <!-- Contact Tab -->
+    <div
+      class="tab-pane fade"
+      id="contact"
+      role="tabpanel"
+      aria-labelledby="contact-tab"
+    >
+      <p>Contact content goes here...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Thumbnail Preview
+  document
+    .getElementById("thumbnailImage")
+    .addEventListener("change", function (event) {
+      const preview = document.getElementById("thumbnailPreview");
+      preview.innerHTML = "";
+      const file = event.target.files[0];
+      if (file) {
+        const label = document.createElement("p");
+        label.textContent = "Thumbnail Preview:";
+        label.className = "fw-bold";
+
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.alt = "Thumbnail Image";
+        img.style.maxWidth = "150px";
+        img.className = "img-thumbnail";
+
+        preview.appendChild(label);
+        preview.appendChild(img);
+      }
+    });
+
+  // Gallery Preview
+  document
+    .getElementById("galleryImages")
+    .addEventListener("change", function (event) {
+      const preview = document.getElementById("galleryPreview");
+      preview.innerHTML = "";
+      const files = event.target.files;
+
+      if (files.length > 0) {
+        const label = document.createElement("p");
+        label.textContent = "Gallery Image Previews:";
+        label.className = "w-100 fw-bold";
+        preview.appendChild(label);
+      }
+
+      Array.from(files).forEach((file) => {
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        img.alt = "Gallery Image";
+        img.style.maxWidth = "120px";
+        img.className = "img-thumbnail";
+        preview.appendChild(img);
+      });
+    });
+</script>

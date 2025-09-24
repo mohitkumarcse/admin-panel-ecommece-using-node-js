@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .ck-container {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .ck-editor__top {
+        margin-top: 20px !important;
+      }
+      /* Add this */
+      .ck-editor__editable[role="textbox"] {
+        min-height: 400px; /* or any height you want */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-layout">
+      <!-- Sidebar (left) -->
+      <%- include('partials/sidebar') %>
+
+      <!-- Main area (right) -->
+      <div class="main-section">
+        <header class="main-header">
+          <!-- Optional repeated header content -->
+          <%- include('partials/header') %>
+        </header>
+
+        <div class="main-content"><%- body %></div>
+      </div>
+    </div>
+
+    <%- include('partials/footer') %>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script src="/config/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"
+    ></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".js-brand-basic-multiple").select2({
+          placeholder: "Select Category",
+        });
+      });
+      $(document).ready(function () {
+        $(".js-category-basic-multiple").select2({
+          placeholder: "Select Brand",
+        });
+      });
+      $(document).ready(function () {
+        $(".js-material-basic-multiple").select2({
+          placeholder: "Select Material",
+        });
+      });
+
+      $(document).ready(function () {
+        $(".js-tags-basic-multiple").select2({
+          placeholder: "Select Tags",
+        });
+      });
+      $(document).ready(function () {
+        $(".js-sizes-basic-multiple").select2({
+          placeholder: "Select Tags",
+        });
+      });
+      $(document).ready(function () {
+        $(".js-colors-basic-multiple").select2({
+          placeholder: "Select Tags",
+        });
+      });
+    </script>
+  </body>
+</html>

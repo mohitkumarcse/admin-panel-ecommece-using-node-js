@@ -1,0 +1,23 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+  }
+  h1 {
+    color: #333;
+  }
+  pre {
+    background: #1e1e1e;
+    color: #00ff00;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: scroll;
+  }
+</style>
+<h1>Server Access Logs</h1>
+<pre>
+<% logs.forEach(log => { %>
+<%= log %>
+<% }) %>
+    </pre
+>

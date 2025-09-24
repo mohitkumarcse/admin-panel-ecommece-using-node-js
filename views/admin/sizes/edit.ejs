@@ -1,0 +1,34 @@
+<h2 class="mb-4">Edit Size</h2>
+
+<div class="mb-3 text-end">
+  <a href="/admin/sizes" class="btn btn-sm btn-dark">Back</a>
+</div>
+
+<form action="/admin/size/update/<%= size._id %>" method="POST">
+  <div class="mb-3">
+    <strong><label for="name" class="form-label">Size Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      name="name"
+      id="name"
+      value="<%= size.name %>"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong><label for="status" class="form-label">Status</label></strong>
+    <select
+      class="form-select custom-input rounded-md"
+      id="status"
+      name="status"
+    >
+      <option value="active" <%= size.status === 'active' ? 'selected' : '' %>>Active</option>
+      <option value="inactive" <%= size.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+    </select>
+  </div>
+
+  <button type="submit" class="button-styling">Update</button>
+  <a href="/admin/sizes" class="button-styling btn btn-secondary">Cancel</a>
+</form>

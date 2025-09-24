@@ -1,0 +1,119 @@
+<h2 class="mb-4">Create New Category</h2>
+
+<div class="mb-3 text-end">
+  <a href="/admin/categories" class="btn btn-sm btn-dark">Back</a>
+</div>
+
+<form
+  action="/admin/category/store"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div class="mb-3">
+    <strong><label for="categoryName" class="form-label">Name</label></strong>
+    <input
+      type="text"
+      class="form-control custom-input rounded-md"
+      name="categoryName"
+      id="categoryName"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="categoryDescription" class="form-label"
+        >Description</label
+      ></strong
+    >
+    <textarea
+      class="form-control custom-input rounded-md"
+      name="categoryDescription"
+      id="categoryDescription"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="categoryImage" class="form-label"
+        >Category Image</label
+      ></strong
+    >
+    <input
+      type="file"
+      class="form-control custom-input rounded-md"
+      name="categoryImage"
+      id="categoryImage"
+    />
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="parentCategory" class="form-label"
+        >Parent Category</label
+      ></strong
+    >
+    <select
+      class="form-select custom-input rounded-md"
+      id="parentCategory"
+      name="parentCategory"
+    >
+      <option value="">None</option>
+      <% categories.forEach(category => { %>
+      <option value="<%= category._id %>"><%= category.name %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <strong
+      ><label for="categoryStatus" class="form-label">Status</label></strong
+    >
+    <select
+      class="form-select custom-input rounded-md"
+      id="categoryStatus"
+      name="status"
+    >
+      <option value="active">Active</option>
+      <option value="inactive">Inactive</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <strong class="form-label d-block mb-2">Trending Options</strong>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="homeTrending"
+        name="isHomeTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="homeTrending">Home</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="menTrending"
+        name="isMenTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="menTrending">Men</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="womenTrending"
+        name="isWomenTrending"
+        value="true"
+      />
+      <label class="form-check-label" for="womenTrending">Women</label>
+    </div>
+  </div>
+
+  <button type="submit" class="button-styling">Save</button>
+  <button type="button" class="button-styling">Cancel</button>
+</form>

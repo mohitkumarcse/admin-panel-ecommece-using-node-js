@@ -1,0 +1,14 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "name": "admin",
+      "permissions": ["create", "edit", "delete", "view"]
+    },
+    {
+      "id": 2,
+      "name": "user",
+      "permissions": ["view"]
+    }
+  ]
+}

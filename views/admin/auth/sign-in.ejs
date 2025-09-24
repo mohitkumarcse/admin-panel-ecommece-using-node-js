@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      .left-panel {
+        background: #f0f0f0;
+        height: 100vh;
+      }
+
+      .right-panel {
+        background: #000;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .login-form {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .login-form h1 {
+        background-color: #050404;
+        color: #41d61b;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+      }
+
+      .login-form label {
+        color: #fff;
+      }
+
+      .login-form button {
+        color: #41d61b;
+        height: 40px;
+        border-radius: 8px;
+        font-size: 22px;
+        background-color: transparent;
+        border: 2px solid #41d61b;
+        transition: all 0.3s ease;
+      }
+
+      .login-form button:hover {
+        background-color: #e71414;
+        color: #fff;
+        border-color: #e71414;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left Panel with Image -->
+        <div
+          class="col-md-6 left-panel d-flex align-items-center justify-content-center overflow-hidden p-0"
+        >
+          <img
+            src="/assets/images/admin.jpg"
+            alt="Admin portal illustration"
+            class="img-fluid w-100 h-100 object-fit-cover"
+            style="object-position: center"
+          />
+        </div>
+
+        <!-- Right Panel with Login Form -->
+        <div class="col-md-6 right-panel">
+          <div class="login-form">
+            <h1>Admin Login</h1>
+            <form action="/admin/login" method="POST" lang="en">
+              <div class="mb-3">
+                <label for="userEmail" name="email" class="form-label"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  id="userEmail"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="userPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="userPassword"
+                  name="password"
+                />
+              </div>
+              <button type="submit" class="w-100 mt-2">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

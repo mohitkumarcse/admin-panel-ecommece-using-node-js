@@ -1,0 +1,158 @@
+<h2 class="mb-4">Welcome, <%= username %></h2>
+<div class="mb-3 text-end">
+  <% if (role == 1) { %>
+  <a href="/admin/user/create">
+    <button class="btn btn-sm btn-dark">Create User</button>
+  </a>
+  <% } %>
+</div>
+
+<div class="table-responsive">
+  <div id="user-table"></div>
+</div>
+
+<script>
+
+  let table;
+  document.addEventListener("DOMContentLoaded", function () {
+    const users = <%- JSON.stringify(users) %>;
+     table = new Tabulator("#user-table", {
+      index: "_id",
+      data: users,
+      layout: "fitColumns",
+      reactiveLayout: true,
+      pagination: "local",
+      paginationSize: 10,
+      paginationSizeSelector: [3, 5, 10, 20],
+      columns: [
+        {
+          title: "#",
+          field: "id",
+          width: 50,
+          sorter: "number",
+          headerFilter: "input",
+        },
+        {
+          title: "Profile Image",
+          field: "profileImage",
+          sorter: "string",
+          headerFilter: "input",
+          formatter: function(cell) {
+            const data = cell.getRow().getData();
+            const image = data.profileImage ? data.profileImage : 'profile.png';
+            return `<img src="/uploads/profile/${image}" alt="Profile Image" width="50" height="50" class="rounded-circle">`;
+          },
+        },
+        {
+          title: "Name",
+          field: "username",
+          sorter: "string",
+          headerFilter: "input",
+        },
+        {
+          title: "Email",
+          field: "email",
+          sorter: "string",
+          headerFilter: "input",
+        },
+        {
+          title: "Role",
+          field: "role",
+          sorter: "string",
+          headerFilter: "select",
+          headerFilterParams: {
+            values: {
+              "": "-- Select Role --",
+              1: "Administrator",
+              2: "User",
+
+            },
+          },
+          formatter: function(cell) {
+            const value = cell.getRow().getData();
+            const roleMap = {
+              1: "Administrator",
+              2: "User",
+
+            };
+            return roleMap[value.role];
+          },
+          editor: "select",
+          editorParams: {
+            values: {
+              1: "Administrator",
+              2: "User",
+
+            },
+          },
+        },
+        {
+            title: "Status",
+            field: "status",
+            sorter: "string",
+            headerFilter: "select",
+            headerFilterParams: {
+              values: {
+                "": "-- Select Status --",
+                1: "Active",
+                0: "Inactive",
+              },
+            },
+            formatter: function (cell) {
+              const data = cell.getRow().getData();
+              const id=data._id;
+              const checked = data.status == 1 ? 'checked' : '';
+              return `
+                <div class="form-check form-switch">
+                 <input class="form-check-input" type="checkbox" id="status" ${checked} onclick="changeStatus('${id}')">
+                </div>
+              `;
+            }
+          },
+
+        {
+          title: "Actions",
+          field: "actions",
+          hozAlign: "center",
+          formatter: function (cell) {
+            const id = cell.getRow().getData()._id;
+            return `
+              <% if (role == 1) { %>
+              <a href="/admin/user/view/${id}">
+                <button class='btn btn-sm btn-primary me-1'>View</button>
+              </a>
+              <% } %>
+              <% if (role == 1) { %>
+              <a href="/admin/user/edit/${id}">
+                <button class='btn btn-sm btn-success me-1'>Edit</button>
+              </a>
+              <% } %>
+              <% if (role == 1) { %>
+              <a href="/admin/user/delete/${id}" onclick="return confirm('Are you sure you want to delete this user?')">
+                <button class='btn btn-sm btn-danger'>Delete</button>
+              </a>
+              <% } %>
+            `;
+          },
+          width: 300,
+          headerSort: false,
+          headerFilter: false,
+        },
+      ],
+    });
+  });
+
+    async function changeStatus(id) {
+    try {
+      const res = await fetch(`/admin/user/update-status/${id}`);
+      const data = await res.json();
+      if (data.success) {
+        table.updateData([{ _id: id, status: data.status }]);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+</script>
