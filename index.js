@@ -31,6 +31,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/', (req, res) => {
+  res.send('Login Page');
+});
+
 app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
   const logFile = path.join(logDir, 'access.log');
 
