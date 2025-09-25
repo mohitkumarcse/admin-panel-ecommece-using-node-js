@@ -49,7 +49,6 @@ app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
 });
 
 app.use(adminRoutes);
-
 app.use((req, res, next) => {
   res.status(404).render('admin/errors/404', {
     title: 'Page Not Found',
@@ -58,40 +57,40 @@ app.use((req, res, next) => {
 });
 
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
+// mongoose.connect(process.env.MONGO_URL).then(() => {
+//   console.log('Connected to MongoDB');
+// }).catch((error) => {
+//   console.error('Error connecting to MongoDB:', error);
+// });
 
 
-// let isConnected = false;
-// async function connectToMongoDB() {
-//   try {
-//     await mongoose.connect(process.env.MONGO_URL);
-//     isConnected = true;
-//     console.log('MongoDB Connected');
-//   } catch (err) {
-//     console.log('Not Connected', err);
-//   }
-// }
+let isConnected = false;
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
+    console.log('MongoDB Connected');
+  } catch (err) {
+    console.log('Not Connected', err);
+  }
+}
 
 
-// app.use((req, res, next) => {
-//   if (!isConnected) {
-//     connectToMongoDB();
-//   }
-//   next();
-// })
+app.use((req, res, next) => {
+  if (!isConnected) {
+    connectToMongoDB();
+  }
+  next();
+})
 
 // console.log(process.env.PORT)
 
-app.listen(process.env.PORT, () => {
-  console.log('Server suru ho gaya hai')
-})
+// app.listen(process.env.PORT, () => {
+//   console.log('Server suru ho gaya hai')
+// })
 
 
 // console.log('***********************')
 
-module.exports = app
+// module.exports = app
 
