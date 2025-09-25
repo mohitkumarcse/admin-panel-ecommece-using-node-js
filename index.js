@@ -1,73 +1,92 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-const donenv = require('dotenv');
-const fs = require('fs');
+const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const { title } = require('process');
-const adminRoutes = require('./route/adminRoutes');
-const morgan = require('morgan');
-const { is_loggedIn } = require('./middleware/auth');
-const { is_admin } = require('./middleware/isAdmin');
 const serverless = require('serverless-http');
-const { MongoClient, ServerApiVersion } = require('mongodb');
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, "views"));
+// --- Configuration & Initialization ---
 
+// Load environment variables for local development (ignored by Vercel in production)
 if (process.env.NODE_ENV !== 'production') {
-  donenv.config();
+  dotenv.config();
 }
 
-// const logDir = path.join(__dirname, 'logs');
-// if (!fs.existsSync(logDir)) {
-//   fs.mkdirSync(logDir);
-// }
+// Instantiate Express app
+const app = express();
 
-// const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
-// app.use(morgan('combined', { stream: accessLogStream }));
+// Required routes and middleware (ensure these files exist)
+const adminRoutes = require('./route/adminRoutes');
+// const { is_loggedIn } = require('./middleware/auth'); // Assuming these are used in adminRoutes
+// const { is_admin } = require('./middleware/isAdmin');
+
+
+// --- Express View Engine Setup ---
+app.set('view engine', 'ejs');
+// Note: path.join(__dirname, "views") relies on Vercel including the 'views' directory in the build.
+app.set('views', path.join(__dirname, "views"));
+
+
+// --- Express Middleware ---
 app.use(expressLayouts);
 app.set('layout', 'layouts/layout');
+
+// Serve static assets from various directories
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use('/config', express.static(__dirname + '/config'));
+app.use('/config', express.static(path.join(__dirname, 'config')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
 
-// app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
-//   const logFile = path.join(logDir, 'access.log');
-//   console.log('*++++++++++');
+// --- MongoDB Serverless Caching Setup ---
 
-//   fs.readFile(logFile, 'utf8', (err, data) => {
-//     if (err) {
-//       console.error('Error reading log file:', err);
-//       return res.status(500).send('Error loading logs');
-//     }
+// Variable to cache the connection promise. Crucial for serverless performance.
+let cachedDb = null;
 
-//     const logs = data.trim().split('\n').reverse();
-//     res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
-//   });
-// });
+async function connectToMongoDB() {
+  // If a connection is already established (or pending), return immediately.
+  if (cachedDb) {
+    console.log('Using cached MongoDB connection.');
+    // We must await the promise here to ensure it resolves successfully before continuing
+    await cachedDb;
+    return;
+  }
 
-// const logFile = '/tmp/access.log'; // use temp directory in Vercel
+  console.log('Establishing new MongoDB connection (Cold Start).');
 
-// fs.readFile(logFile, 'utf8', (err, data) => {
-//   if (err) {
-//     console.error('Error reading log file:', err);
-//     return res.status(500).send('Error loading logs');
-//   }
+  // Start the connection and cache the resulting promise.
+  cachedDb = mongoose.connect(process.env.MONGO_URL, {
+    // Vercel recommended options for serverless environments
+    serverSelectionTimeoutMS: 5000,
+    maxPoolSize: 1,
+  })
+    .then(() => {
+      console.log('MongoDB successfully connected.');
+      // Return the successful connection promise
+      return mongoose.connection;
+    })
+    .catch((err) => {
+      console.error('MongoDB Connection Failed:', err);
+      cachedDb = null; // Clear cache on failure so it can retry on the next call
+      throw err;
+    });
 
-//   const logs = data.trim().split('\n').reverse();
-//   res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
-// });
+  // Wait for the initial connection to resolve before the function continues.
+  await cachedDb;
+}
 
-// app.use(adminRoutes);
 
+// --- Routes ---
+// Mount the admin routes here
+app.use(adminRoutes);
+
+// 404 handler (must be the last route)
 app.use((req, res, next) => {
   res.status(404).render('admin/errors/404', {
     title: 'Page Not Found',
@@ -76,48 +95,25 @@ app.use((req, res, next) => {
 });
 
 
-// async function startServer() {
-//   try {
-//     await connectToMongoDB();
-//     const PORT = process.env.PORT || 3000;
+// --- Serverless Export ---
 
-//   } catch (err) {
-//     console.error('Failed to start server:', err);
-//   }
-// }
-
-// startServer();
-// --- MONGOOSE CONNECTION SETUP ---
-app.use(adminRoutes);
-
-cachedClient = null;
-
-async function connectToMongoDB() {
-  if (cachedClient) return cachedClient;
-
-  const client = new MongoClient(process.env.MONGO_URL, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    }
-  });
-
-  await client.connect();
-  cachedClient = client;
-  console.log("Connected to MongoDB");
-  return client;
-}
-
-// Serverless handler
+// Wrap the Express app to create a single AWS Lambda/Vercel compatible handler function
 const handler = serverless(app);
 
+// Export the asynchronous Vercel handler function as the default export
 module.exports = async (req, res) => {
   try {
+    // 1. Establish/reuse the MongoDB connection on every function invocation
     await connectToMongoDB();
+
+    // 2. Execute the wrapped Express app handler
     return handler(req, res);
+
   } catch (error) {
+    // This catches both MongoDB connection errors and route execution errors
     console.error("Vercel Handler Error:", error);
+
+    // Send a 500 response immediately to avoid a 504 timeout
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/plain');
     res.end('Server Error: Failed to connect to database or process request.');
