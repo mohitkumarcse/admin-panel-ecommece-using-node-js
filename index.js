@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-require('dotenv').config();
+require('dotenv').config({ debug: true });
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const { title } = require('process');
@@ -110,5 +110,5 @@ app.use(async (req, res, next) => {
 
 // console.log('***********************')
 
-// module.exports = app
+module.exports = app;
 
