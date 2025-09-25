@@ -81,9 +81,4 @@ app.get('', (req, res) => {
 //   }
 //   next();
 // });
-server.listen(process.env.PORT, () => {
-  //console.log('Server is running on port 400');
-})
-
-// Export app for Vercel
-// module.exports = app;
+module.exports = app;
