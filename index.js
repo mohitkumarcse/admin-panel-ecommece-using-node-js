@@ -70,40 +70,37 @@ app.use((req, res, next) => {
 });
 
 
-async function startServer() {
-  try {
-    await connectToMongoDB();
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error('Failed to start server:', err);
-  }
-}
-
-startServer();
-
-// let isConnected = false;
-// async function connectToMongoDB() {
+// async function startServer() {
 //   try {
-//     await mongoose.connect(process.env.MONGO_URL);
-//     isConnected = true;
-//     console.log('MongoDB Connected');
-//   } catch (err) {
+//     await connectToMongoDB();
+//     const PORT = process.env.PORT || 3000;
 
-//     console.log('Not Connected', err);
+//   } catch (err) {
+//     console.error('Failed to start server:', err);
 //   }
 // }
 
+// startServer();
 
-// app.use((req, res, next) => {
-//   if (!isConnected) {
-//     connectToMongoDB();
-//   }
-//   next();
-// })
+let isConnected = false;
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
+    console.log('MongoDB Connected');
+  } catch (err) {
 
+    console.log('Not Connected', err);
+  }
+}
+
+
+app.use(async (req, res, next) => {
+  if (!isConnected) {
+    await connectToMongoDB();
+  }
+  next();
+});
 // console.log(process.env.PORT)
 
 // app.listen(process.env.PORT, () => {
