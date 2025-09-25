@@ -10,8 +10,7 @@ exports.getLogin = (req, res) => {
   if (req.cookies.token) {
     return res.redirect('/admin/dashboard');
   }
-  //res.render('admin/auth/sign-in', { title: 'Sign-in', layout: false });
-  res.send('Login Page');
+  res.render('admin/auth/sign-in', { title: 'Sign-in', layout: false });
 };
 
 exports.postLogin =

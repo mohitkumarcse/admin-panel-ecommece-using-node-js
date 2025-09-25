@@ -45,7 +45,7 @@ app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
   });
 });
 
-app.use(adminRoutes);
+app.use('/', adminRoutes);
 
 // 404 page
 app.use((req, res, next) => {
