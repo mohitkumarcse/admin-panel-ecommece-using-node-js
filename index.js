@@ -115,5 +115,5 @@ app.use(async (req, res, next) => {
 
 // console.log('***********************')
 
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
 
