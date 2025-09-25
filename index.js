@@ -92,5 +92,5 @@ app.use((req, res, next) => {
 
 // console.log('***********************')
 
-// module.exports = app
+module.exports = app
 
