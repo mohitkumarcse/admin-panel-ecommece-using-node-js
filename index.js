@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-require('dotenv').config({ debug: true });
+const donenv = require('dotenv');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const { title } = require('process');
@@ -11,9 +11,14 @@ const adminRoutes = require('./route/adminRoutes');
 const morgan = require('morgan');
 const { is_loggedIn } = require('./middleware/auth');
 const { is_admin } = require('./middleware/isAdmin');
+const serverless = require('serverless-http');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "views"));
+
+if (process.env.NODE_ENV !== 'production') {
+  donenv.config();
+}
 
 // const logDir = path.join(__dirname, 'logs');
 // if (!fs.existsSync(logDir)) {
@@ -110,5 +115,5 @@ app.use(async (req, res, next) => {
 
 // console.log('***********************')
 
-// module.exports = app;
+module.exports.handler = serverless(app);
 
