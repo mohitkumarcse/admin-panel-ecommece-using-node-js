@@ -13,7 +13,7 @@ const { is_loggedIn } = require('./middleware/auth');
 const { is_admin } = require('./middleware/isAdmin');
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, "views"));
 
 const logDir = path.join(__dirname, 'logs');
 if (!fs.existsSync(logDir)) {
