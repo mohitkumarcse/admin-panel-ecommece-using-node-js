@@ -15,13 +15,13 @@ const { is_admin } = require('./middleware/isAdmin');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "views"));
 
-const logDir = path.join(__dirname, 'logs');
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
-}
+// const logDir = path.join(__dirname, 'logs');
+// if (!fs.existsSync(logDir)) {
+//   fs.mkdirSync(logDir);
+// }
 
-const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
-app.use(morgan('combined', { stream: accessLogStream }));
+// const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
+// app.use(morgan('combined', { stream: accessLogStream }));
 app.use(expressLayouts);
 app.set('layout', 'layouts/layout');
 app.use(express.static(path.join(__dirname, 'public')));
