@@ -35,29 +35,33 @@ app.get('/', (req, res) => {
   res.send('Login Page');
 });
 
-app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
-  const logFile = path.join(logDir, 'access.log');
-
-  fs.readFile(logFile, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading log file:', err);
-      return res.status(500).send('Error loading logs');
-    }
-
-    const logs = data.trim().split('\n').reverse();
-    res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
-  });
+app.get('', (req, res) => {
+  res.send('Login Page***************');
 });
 
-app.use('/', adminRoutes);
+// app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
+//   const logFile = path.join(logDir, 'access.log');
 
-// 404 page
-app.use((req, res, next) => {
-  res.status(404).render('admin/errors/404', {
-    title: 'Page Not Found',
-    layout: false
-  });
-});
+//   fs.readFile(logFile, 'utf8', (err, data) => {
+//     if (err) {
+//       console.error('Error reading log file:', err);
+//       return res.status(500).send('Error loading logs');
+//     }
+
+//     const logs = data.trim().split('\n').reverse();
+//     res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
+//   });
+// });
+
+// app.use(adminRoutes);
+
+// // 404 page
+// app.use((req, res, next) => {
+//   res.status(404).render('admin/errors/404', {
+//     title: 'Page Not Found',
+//     layout: false
+//   });
+// });
 
 // MongoDB connection logic here (optional: only if you need it in Vercel environment)
 let isConnected = false;
