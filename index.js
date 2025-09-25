@@ -6,9 +6,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
-const { title } = require('process');
-const adminRoutes = require('./route/adminRoutes');
 const morgan = require('morgan');
+const adminRoutes = require('./route/adminRoutes');
 const { is_loggedIn } = require('./middleware/auth');
 const { is_admin } = require('./middleware/isAdmin');
 
@@ -26,16 +25,14 @@ app.use(expressLayouts);
 app.set('layout', 'layouts/layout');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use('/config', express.static(__dirname + '/config'));
+app.use('/config', express.static(path.join(__dirname, 'config')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
 app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
   const logFile = path.join(logDir, 'access.log');
-  console.log('*++++++++++');
 
   fs.readFile(logFile, 'utf8', (err, data) => {
     if (err) {
@@ -49,6 +46,8 @@ app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
 });
 
 app.use(adminRoutes);
+
+// 404 page
 app.use((req, res, next) => {
   res.status(404).render('admin/errors/404', {
     title: 'Page Not Found',
@@ -56,14 +55,7 @@ app.use((req, res, next) => {
   });
 });
 
-
-// mongoose.connect(process.env.MONGO_URL).then(() => {
-//   console.log('Connected to MongoDB');
-// }).catch((error) => {
-//   console.error('Error connecting to MongoDB:', error);
-// });
-
-
+// MongoDB connection logic here (optional: only if you need it in Vercel environment)
 let isConnected = false;
 async function connectToMongoDB() {
   try {
@@ -71,26 +63,16 @@ async function connectToMongoDB() {
     isConnected = true;
     console.log('MongoDB Connected');
   } catch (err) {
-    console.log('Not Connected', err);
+    console.log('MongoDB connection failed:', err);
   }
 }
-
 
 app.use((req, res, next) => {
   if (!isConnected) {
     connectToMongoDB();
   }
   next();
-})
+});
 
-// console.log(process.env.PORT)
-
-// app.listen(process.env.PORT, () => {
-//   console.log('Server suru ho gaya hai')
-// })
-
-
-// console.log('***********************')
-
-// module.exports = app
-
+// Export app for Vercel
+module.exports = app;
