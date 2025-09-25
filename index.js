@@ -11,25 +11,25 @@ const adminRoutes = require('./route/adminRoutes');
 const { is_loggedIn } = require('./middleware/auth');
 const { is_admin } = require('./middleware/isAdmin');
 
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-// const logDir = path.join(__dirname, 'logs');
-// if (!fs.existsSync(logDir)) {
-//   fs.mkdirSync(logDir);
-// }
+const logDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
 
-// const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
-// app.use(morgan('combined', { stream: accessLogStream }));
-// app.use(expressLayouts);
-// app.set('layout', 'layouts/layout');
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'node_modules')));
-// app.use('/config', express.static(path.join(__dirname, 'config')));
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-// app.use(cookieParser());
+const accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogStream }));
+app.use(expressLayouts);
+app.set('layout', 'layouts/layout');
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
+app.use('/config', express.static(path.join(__dirname, 'config')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Login Page');
