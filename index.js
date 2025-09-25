@@ -57,40 +57,40 @@ app.use((req, res, next) => {
 });
 
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
+// mongoose.connect(process.env.MONGO_URL).then(() => {
+//   console.log('Connected to MongoDB');
+// }).catch((error) => {
+//   console.error('Error connecting to MongoDB:', error);
+// });
 
 
-// let isConnected = false;
-// async function connectToMongoDB() {
-//   try {
-//     await mongoose.connect(process.env.MONGO_URL);
-//     isConnected = true;
-//     console.log('MongoDB Connected');
-//   } catch (err) {
-//     console.log('Not Connected', err);
-//   }
-// }
+let isConnected = false;
+async function connectToMongoDB() {
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    isConnected = true;
+    console.log('MongoDB Connected');
+  } catch (err) {
+    console.log('Not Connected', err);
+  }
+}
 
 
-// app.use((req, res, next) => {
-//   if (!isConnected) {
-//     connectToMongoDB();
-//   }
-//   next();
-// })
-
-console.log(process.env.PORT)
-
-app.listen(process.env.PORT, () => {
-  console.log('Server suru ho gaya hai')
+app.use((req, res, next) => {
+  if (!isConnected) {
+    connectToMongoDB();
+  }
+  next();
 })
 
+// console.log(process.env.PORT)
 
-console.log('***********************')
+// app.listen(process.env.PORT, () => {
+//   console.log('Server suru ho gaya hai')
+// })
+
+
+// console.log('***********************')
 
 // module.exports = app
 
