@@ -48,19 +48,19 @@ app.use(cookieParser());
 //   });
 // });
 
-const logFile = '/tmp/access.log'; // use temp directory in Vercel
+// const logFile = '/tmp/access.log'; // use temp directory in Vercel
 
-fs.readFile(logFile, 'utf8', (err, data) => {
-  if (err) {
-    console.error('Error reading log file:', err);
-    return res.status(500).send('Error loading logs');
-  }
+// fs.readFile(logFile, 'utf8', (err, data) => {
+//   if (err) {
+//     console.error('Error reading log file:', err);
+//     return res.status(500).send('Error loading logs');
+//   }
 
-  const logs = data.trim().split('\n').reverse();
-  res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
-});
+//   const logs = data.trim().split('\n').reverse();
+//   res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
+// });
 
-app.use(adminRoutes);
+// app.use(adminRoutes);
 
 app.use((req, res, next) => {
   res.status(404).render('admin/errors/404', {
