@@ -1,10 +1,6 @@
 .env
 /node_modules
 
-# Logs
-logs
-*.log
-npm-debug.log*
 
 # Optional: system files
 .DS_Store

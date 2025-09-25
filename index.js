@@ -64,23 +64,26 @@ app.get('', (req, res) => {
 // });
 
 // MongoDB connection logic here (optional: only if you need it in Vercel environment)
-let isConnected = false;
-async function connectToMongoDB() {
-  try {
-    await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
-    console.log('MongoDB Connected');
-  } catch (err) {
-    console.log('MongoDB connection failed:', err);
-  }
-}
+// let isConnected = false;
+// async function connectToMongoDB() {
+//   try {
+//     await mongoose.connect(process.env.MONGO_URL);
+//     isConnected = true;
+//     console.log('MongoDB Connected');
+//   } catch (err) {
+//     console.log('MongoDB connection failed:', err);
+//   }
+// }
 
-app.use((req, res, next) => {
-  if (!isConnected) {
-    connectToMongoDB();
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (!isConnected) {
+//     connectToMongoDB();
+//   }
+//   next();
+// });
+server.listen(process.env.PORT, () => {
+  //console.log('Server is running on port 400');
+})
 
 // Export app for Vercel
-module.exports = app;
+// module.exports = app;
