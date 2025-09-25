@@ -33,19 +33,31 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
-  const logFile = path.join(logDir, 'access.log');
-  console.log('*++++++++++');
+// app.get('/admin/logs', is_loggedIn, is_admin, (req, res) => {
+//   const logFile = path.join(logDir, 'access.log');
+//   console.log('*++++++++++');
 
-  fs.readFile(logFile, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading log file:', err);
-      return res.status(500).send('Error loading logs');
-    }
+//   fs.readFile(logFile, 'utf8', (err, data) => {
+//     if (err) {
+//       console.error('Error reading log file:', err);
+//       return res.status(500).send('Error loading logs');
+//     }
 
-    const logs = data.trim().split('\n').reverse();
-    res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
-  });
+//     const logs = data.trim().split('\n').reverse();
+//     res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
+//   });
+// });
+
+const logFile = '/tmp/access.log'; // use temp directory in Vercel
+
+fs.readFile(logFile, 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading log file:', err);
+    return res.status(500).send('Error loading logs');
+  }
+
+  const logs = data.trim().split('\n').reverse();
+  res.render('admin/logs/log', { logs, role: req.role, username: req.username.charAt(0).toUpperCase() + req.username.slice(1) });
 });
 
 app.use(adminRoutes);
@@ -58,12 +70,19 @@ app.use((req, res, next) => {
 });
 
 
-mongoose.connect(process.env.MONGO_URL).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.error('Error connecting to MongoDB:', error);
-});
+async function startServer() {
+  try {
+    await connectToMongoDB();
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err);
+  }
+}
 
+startServer();
 
 // let isConnected = false;
 // async function connectToMongoDB() {
@@ -87,9 +106,9 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
 
 // console.log(process.env.PORT)
 
-app.listen(process.env.PORT, () => {
-  console.log('Server suru ho gaya hai')
-})
+// app.listen(process.env.PORT, () => {
+//   console.log('Server suru ho gaya hai')
+// })
 
 
 // console.log('***********************')
