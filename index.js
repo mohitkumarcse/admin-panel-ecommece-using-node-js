@@ -86,34 +86,66 @@ app.use((req, res, next) => {
 // }
 
 // startServer();
+// --- MONGOOSE CONNECTION SETUP ---
+let cachedDb = null;
 
-let isConnected = false;
 async function connectToMongoDB() {
-  try {
-    await mongoose.connect(process.env.MONGO_URL);
-    isConnected = true;
-    console.log('MongoDB Connected');
-  } catch (err) {
-
-    console.log('Not Connected', err);
+  if (cachedDb) {
+    console.log('Using cached MongoDB connection.');
+    return; // Already connected or connecting
   }
+
+  // Store the connection promise
+  cachedDb = mongoose.connect(process.env.MONGO_URL, {
+    // Vercel recommended options for serverless
+    serverSelectionTimeoutMS: 5000,
+    maxPoolSize: 1,
+  })
+    .then(() => {
+      console.log('MongoDB successfully connected for the first time.');
+    })
+    .catch((err) => {
+      console.error('MongoDB Connection Failed:', err);
+      cachedDb = null; // Reset cache on failure
+      throw err; // Re-throw the error to be caught by the Vercel handler
+    });
+
+  await cachedDb; // Wait for the initial connection promise to resolve
 }
 
 
-app.use(async (req, res, next) => {
-  if (!isConnected) {
-    await connectToMongoDB();
-  }
-  next();
+// --- ROUTES ---
+// Mount your main routes here after the setup
+app.use(adminRoutes); // Uncomment this line once your routes are ready
+
+// 404 handler (always at the end)
+app.use((req, res, next) => {
+  res.status(404).render('admin/errors/404', {
+    title: 'Page Not Found',
+    layout: false
+  });
 });
-// console.log(process.env.PORT)
-
-// app.listen(process.env.PORT, () => {
-//   console.log('Server suru ho gaya hai')
-// })
 
 
-// console.log('***********************')
+// --- SERVERLESS EXPORT ---
 
-module.exports = serverless(app);
+// 1. Wrap the Express app with serverless-http
+const handler = serverless(app);
 
+// 2. Create the Vercel-specific handler function
+module.exports = async (req, res) => {
+  try {
+    // Ensure connection is established (or use the cached one)
+    await connectToMongoDB();
+
+    // Execute the wrapped Express handler
+    return handler(req, res);
+
+  } catch (error) {
+    console.error("Vercel Handler Error:", error);
+    // Respond with a 500 error if the connection failed
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Server Error: Failed to connect to database or process request.');
+  }
+};
