@@ -95,7 +95,7 @@ cachedClient = null;
 async function connectToMongoDB() {
   if (cachedClient) return cachedClient;
 
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(process.env.MONGO_URL, {
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
